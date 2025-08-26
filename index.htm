@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="number"] {
+            width: 50px;
+        }
+        input[type="text"] {
+            width: 220px; /* bigger for full student names */
+        }
+        .print-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .print-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function calculateTotal(row) {
+            let inputs = row.querySelectorAll(".marks");
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            row.querySelector(".total").value = total;
+        }
+        function printMarklist() {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <h1>🏫 पुणे विद्यार्थी गृहाचे</h1>
+    <h2>विद्याप्रशाला हायसकूल व ज्युनि.कॉलेज, तळेगांव (अं.)</h2>
+    <h2>Student Marklist</h2>
+
+    <table>
+        <tr>
+            <th>Roll No</th>
+            <th>Student Name</th>
+            <th>Marathi</th>
+            <th>Hindi</th>
+            <th>English</th>
+            <th>Maths</th>
+            <th>Science</th>
+            <th>Soc. Studies</th>
+            <th>Total</th>
+        </tr>
+        <!-- 50 student rows -->
+        <script>
+            for (let i = 1; i <= 50; i++) {
+                document.write(`
+                <tr>
+                    <td>${i}</td>
+                    <td><input type="text" placeholder="Enter full name"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="number" class="marks" onkeyup="calculateTotal(this.closest('tr'))"></td>
+                    <td><input type="text" class="total" readonly></td>
+                </tr>
+                `);
+            }
+        </script>
+    </table>
+
+    <button class="print-btn" onclick="printMarklist()">🖨️ Print / Save as PDF</button>
+</body>
+</html>
